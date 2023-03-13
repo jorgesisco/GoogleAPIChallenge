@@ -41,12 +41,13 @@ class GmailApi:
                    to=str(),
                    from_=str(),
                    subject=str(),
-                   message_content=str()):
+                   message_content=str(),
+                   activate=True):
 
         service = self.service()
 
         # added this condition to avoid sending email when token.json file is not available
-        if service is not None:
+        if service is not None and activate is True:
             try:
                 message = EmailMessage()
 
@@ -66,38 +67,56 @@ class GmailApi:
                 # pylint: disable=E1101
                 send_message = (service.users().messages().send
                                 (userId="me", body=create_message).execute())
+
                 print(f'Message Id: {send_message["id"]}')
+
             except HttpError as error:
                 print(f'An error occurred: {error}')
                 send_message = None
+
             return send_message
-        else:
+
+        elif service is None:
             print("token.json was not avialable and It was created because this is the first run, run the script "
                   "again to send"
                   "the email")
+            return ""
+
+        else:
+            return ""
 
     # search_emails will return a list of message id's
-    def search_emails(self, user_id=str(), search_query=str()):
+    def search_emails(self, user_id=str(), search_query=str(), activate=True):
         service = self.service()
 
-        try:
-            search_id = service.users().messages().list(userId=user_id, q=search_query).execute()
-            results_number = search_id['resultSizeEstimate']
+        if service is not None and activate is True:
+            try:
+                search_id = service.users().messages().list(userId=user_id, q=search_query).execute()
+                results_number = search_id['resultSizeEstimate']
 
-            if results_number > 0:
-                messages_id = search_id["messages"]
-                messages_id_list = [messageId['id'] for messageId in messages_id]
+                if results_number > 0:
+                    messages_id = search_id["messages"]
+                    messages_id_list = [messageId['id'] for messageId in messages_id]
 
-                messages_texts = [self.get_messages(user_id=user_id, msg_id=i) for i in messages_id_list]
+                    messages_texts = [self.get_messages(user_id=user_id, msg_id=i) for i in messages_id_list]
 
-                return messages_texts
+                    return messages_texts
 
-            else:
-                print("No messages were found with this search query")
+                else:
+                    print("No messages were found with this search query")
+                    return ""
+
+            except HttpError as error:
+                print(f'An error occurred: {error}')
                 return ""
 
-        except HttpError as error:
-            print(f'An error occurred: {error}')
+        elif service is None:
+            print("token.json was not avialable and It was created because this is the first run, run the script "
+                  "again to send"
+                  "the email")
+            return ""
+
+        else:
             return ""
 
     def get_messages(self, user_id, msg_id):
