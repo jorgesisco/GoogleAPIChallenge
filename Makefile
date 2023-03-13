@@ -1,6 +1,6 @@
 #Install pipenv and required dependencies
 
-install:
+install env:
 	pipenv install
 	pipenv shell
 
