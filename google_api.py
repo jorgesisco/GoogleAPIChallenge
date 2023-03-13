@@ -139,7 +139,7 @@ class GmailApi:
         else:
             return ""
 
-    """The get_messages method retrieves the content of a message based on its id, 
+    """The get_messages() method retrieves the content of a message based on its id, 
     decoded the message to plain text, shows the messages in as a list in the output 
     and saves it to a file named "messages.txt"."""
     def get_messages(self, user_id, msg_id):
