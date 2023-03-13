@@ -4,7 +4,7 @@
 - Clone this repo
 
 ## Install Dependencies
-<code>Make install</code>
+<code>make install env</code>
 
 and then 
 
