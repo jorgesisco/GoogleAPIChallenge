@@ -89,6 +89,7 @@ class GmailApi:
                 messages_id_list = [messageId['id'] for messageId in messages_id]
 
                 messages_texts = [self.get_messages(user_id=user_id, msg_id=i) for i in messages_id_list]
+
                 return messages_texts
 
             else:
@@ -101,16 +102,17 @@ class GmailApi:
 
     def get_messages(self, user_id, msg_id):
         service = self.service()
-
         try:
             message = service.users().messages().get(userId=user_id, id=msg_id, format="raw").execute()
             message_raw = base64.urlsafe_b64decode(message['raw'].encode('ASCII'))
             message_string = email.message_from_bytes(message_raw).get_payload()
+
+            with open("messages.txt", "a") as file:
+                file.write(message_string)
+
             return message_string
 
         except HttpError as error:
             print(f'An error occurred: {error}')
 
             return None
-
-
