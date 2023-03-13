@@ -3,3 +3,4 @@ Pipfile
 Pipfile.lock
 credentials.json
 token.json
+messages.txt
