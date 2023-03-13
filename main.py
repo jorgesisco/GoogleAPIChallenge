@@ -6,7 +6,7 @@ if __name__ == "__main__":
     # This will return a list of emails based on the used search query, and also create a text file which a message
     # per line
     message_search = api.search_emails(user_id="me",
-                                       search_query="Meeting",
+                                       search_query="python",
                                        activate=True)  # Set active parameter to True
     print(message_search)
 

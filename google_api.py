@@ -13,9 +13,22 @@ SCOPES = ['https://mail.google.com/']
 
 
 class GmailApi:
+    """
+    This class is used to interact with the Gmail API  the constructor has token_file as a parameter,
+    if token file is not available it will prompt the user to log in into the gmail account.
+    Keep in mind the gmail account most be listed in the test users in the OAuth consent
+    screen in the GCP Console
+    """
     def __init__(self, token_file=str()):
         self.token_file = token_file
 
+    """
+    The service() method initializes the Gmail service to then return the service object
+    
+    All methods in the class depend on the service() method to initialize the Gmail API. 
+    If the token_file parameter is not available, it will prompt the user to log in the
+    gmail account.
+    """
     def service(self):
         creds = None
         if os.path.exists(self.token_file):
@@ -37,6 +50,10 @@ class GmailApi:
 
             return None
 
+    """
+    The send_email() method takes the parameters to(receiver), from_(sender), subject, 
+    message_content, activate=True, to send an email using the Gmail API.
+    """
     def send_email(self,
                    to=str(),
                    from_=str(),
@@ -85,7 +102,10 @@ class GmailApi:
         else:
             return ""
 
-    # search_emails will return a list of message id's
+    """
+    The search_emails() method searches for emails using a given search_query and returns 
+    a list of message ids. It calls the get_messages method to fetch the actual message.
+    """
     def search_emails(self, user_id=str(), search_query=str(), activate=True):
         service = self.service()
 
@@ -119,6 +139,9 @@ class GmailApi:
         else:
             return ""
 
+    """The get_messages method retrieves the content of a message based on its id, 
+    decoded the message to plain text, shows the messages in as a list in the output 
+    and saves it to a file named "messages.txt"."""
     def get_messages(self, user_id, msg_id):
         service = self.service()
         try:
