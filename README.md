@@ -34,7 +34,7 @@ For this challenge, I went for the quickstart approach (check the [docs](https:/
 to be set in the project's root folder; I sent the required ```crendentials.json``` file in the email along with the test Gmail account credentials.
 
 
-### - In case you want to use your own credentials:
+#### In case you want to use your own credentials:
 - [Create](https://developers.google.com/gmail/api/quickstart/python#enable_the_api)
 the gmail api key and then [authorize](https://developers.google.com/gmail/api/quickstart/python#authorize_credentials_for_a_desktop_application) 
 the crendentials.
