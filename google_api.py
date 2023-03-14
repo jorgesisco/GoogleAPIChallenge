@@ -51,7 +51,7 @@ class GmailApi:
 
     """
     The send_email() method takes the parameters to(receiver), from_(sender), subject, 
-    message_content, active=True, to send an email using the Gmail API.
+    message_content, active, to send an email using the Gmail API.
     """
     def send_email(self,
                    to=str(),
@@ -102,8 +102,8 @@ class GmailApi:
             return ""
 
     """
-    The search_emails() method searches for emails using a given search_query and returns 
-    a list of message ids. It calls the get_messages method to fetch the actual message.
+    The search_emails() method takes the parameter user_id, search_query and active to search for emails using a 
+    given query and returns a list of message ids. It calls the get_messages() method to fetch the actual message.
     """
     def search_emails(self, user_id=str(), search_query=str(), active=True):
         service = self.service()
@@ -139,8 +139,9 @@ class GmailApi:
             return ""
 
     """
-    The get_messages() method retrieves the content of a message based on its id, decoded the message to plain text, 
-    shows the messages as a list in the output and saves it to a file named messages.txt.
+    The get_messages() method takes the parameter user_id and msg_id and retrieves the content of a message based 
+    on its id, decoded the message to plain text, shows the messages as a list in the output and saves it to a file 
+    named messages.txt.
     """
     def get_messages(self, user_id, msg_id):
         service = self.service()
