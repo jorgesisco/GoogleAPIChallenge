@@ -49,7 +49,7 @@ To run the application, execute the following command from the project's root:
 python main.py
 ```
 
-Also you can run the main.py file.
+Also you can run the main.py file from the IDE.
 
 **Note:** Check the each method's parameter active to be set to ```True``` in order to execute sending the email or search for emails.
 
